@@ -112,7 +112,7 @@ public class Supplier implements Serializable {
 
     @Override
     public String toString() {
-        return "co.edu.sena.inventario.model.Supplier[ idUnit=" + idUnit + " ]";
+        return name;
     }
     
 }

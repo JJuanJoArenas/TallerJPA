@@ -56,13 +56,13 @@ public class Article implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idArticle")
     private Collection<Exit> exitCollection;
     @JoinColumn(name = "id_category", referencedColumnName = "id_category")
-    @ManyToOne
+    @ManyToOne 
     private Category idCategory;
     @JoinColumn(name = "id_presentation", referencedColumnName = "id_presentation")
-    @ManyToOne
+    @ManyToOne 
     private Presentation idPresentation;
     @JoinColumn(name = "id_supplier", referencedColumnName = "id_unit")
-    @ManyToOne
+    @ManyToOne 
     private Supplier idSupplier;
 
     public Article() {
