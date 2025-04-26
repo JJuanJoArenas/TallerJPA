@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Aprendiz
  */
-public class EntryController implements IEntry {
+public class EntryController implements IEntryController {
 
     @Override
     public void insert(Entry entry) throws Exception {

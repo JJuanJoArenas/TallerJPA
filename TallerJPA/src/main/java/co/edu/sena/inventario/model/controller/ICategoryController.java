@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Grupo 6
  */
-public interface ICategory {
+public interface ICategoryController {
      public void insert(Category category) throws Exception;
     public void update(Category category) throws Exception;
     public void delete(Long  idCategory) throws Exception;

@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Aprendiz
  */
-public interface IEntry {
+public interface IEntryController {
      public void insert(Entry entry) throws Exception;
     public void update(Entry entry) throws Exception;
     public void delete(Long  idEntry) throws Exception;

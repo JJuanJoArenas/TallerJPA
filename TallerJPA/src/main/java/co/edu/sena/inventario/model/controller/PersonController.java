@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Aprendiz
  */
-public class PersonController implements  IPerson{
+public class PersonController implements  IPersonController{
 
     @Override
     public void insert(Person person) throws Exception {

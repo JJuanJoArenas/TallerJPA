@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Aprendiz
  */
-public class PresentationController implements IPresentation{
+public class PresentationController implements IPresentationController{
 
     @Override
     public void insert(Presentation presentation) throws Exception {

@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @autho Grupo 6
  */
-public interface ISupplier {
+public interface ISupplierController {
     public void insert(Supplier supplier) throws Exception;
     public void update(Supplier supplier) throws Exception;
     public void delete(Long  idUnit) throws Exception;

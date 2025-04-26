@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Grupo 6
  */
-public interface IArticle {
+public interface IArticleController {
     public void insert(Article article) throws Exception;
     public void update(Article article) throws Exception;
     public void delete(Long  idArticle) throws Exception;

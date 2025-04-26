@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Aprendiz
  */
-public class ExitController implements IExit{
+public class ExitController implements IExitController{
 
     @Override
     public void insert(Exit exit) throws Exception {

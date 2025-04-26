@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author 
  */
-public class UnitController implements IUnit{
+public class UnitController implements IUnitController{
 
     @Override
     public void insert(Unit unit) throws Exception {

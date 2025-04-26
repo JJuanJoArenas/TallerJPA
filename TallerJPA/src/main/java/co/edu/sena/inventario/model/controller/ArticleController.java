@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Grupo 6
  */
-public class ArticleController implements IArticle{
+public class ArticleController implements IArticleController{
 
     @Override
     public void insert(Article article) throws Exception {

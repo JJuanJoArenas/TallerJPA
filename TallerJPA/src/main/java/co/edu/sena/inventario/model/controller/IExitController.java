@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Grupo 6
  */
-public interface IExit {
+public interface IExitController {
      public void insert(Exit exit) throws Exception;
     public void update(Exit exit) throws Exception;
     public void delete(Long  idExit) throws Exception;

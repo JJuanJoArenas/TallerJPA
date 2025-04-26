@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Grupo 6
  */
-public interface IPresentation {
+public interface IPresentationController {
     public void insert(Presentation presentation) throws Exception;
     public void update(Presentation presentation) throws Exception;
     public void delete(Long  idPresentation) throws Exception;

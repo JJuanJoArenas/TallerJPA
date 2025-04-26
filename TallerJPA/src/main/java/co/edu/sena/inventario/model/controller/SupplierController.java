@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Aprendiz
  */
-public class SupplierController implements ISupplier{
+public class SupplierController implements ISupplierController{
 
     @Override
     public void insert(Supplier supplier) throws Exception {

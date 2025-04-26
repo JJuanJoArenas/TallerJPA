@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Grupo 6
  */
-public interface IPerson {
+public interface IPersonController {
     public void insert(Person person) throws Exception;
     public void update(Person person) throws Exception;
     public void delete(Long  document) throws Exception;

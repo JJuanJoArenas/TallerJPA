@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author Grupo 6
  */
-public interface IUnit {
+public interface IUnitController {
      public void insert(Unit unit) throws Exception;
     public void update(Unit unit) throws Exception;
     public void delete(Long  idUnit) throws Exception;

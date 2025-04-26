@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author Aprendiz
  */
-public class CategoryController implements ICategory{
+public class CategoryController implements ICategoryController{
 
     @Override
     public void insert(Category category) throws Exception {
