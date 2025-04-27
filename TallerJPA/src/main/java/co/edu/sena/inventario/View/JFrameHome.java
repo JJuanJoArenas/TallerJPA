@@ -128,7 +128,9 @@ public class JFrameHome extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonArticleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonArticleActionPerformed
-
+        JFrameArticle jFrameArticle = new JFrameArticle();
+        jFrameArticle.setVisible(true);
+        setVisible(false);
     }//GEN-LAST:event_jButtonArticleActionPerformed
 
     private void jButtonCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCategoryActionPerformed
