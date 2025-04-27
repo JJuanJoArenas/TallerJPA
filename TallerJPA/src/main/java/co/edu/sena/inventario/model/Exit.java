@@ -26,12 +26,13 @@ import javax.persistence.TemporalType;
  * @author Aprendiz
  */
 @Entity
-@Table(name = "exit")
+@Table(name = "`exit´")
 @NamedQueries({
     @NamedQuery(name = "Exit.findAll", query = "SELECT e FROM Exit e"),
     @NamedQuery(name = "Exit.findByIdExit", query = "SELECT e FROM Exit e WHERE e.idExit = :idExit"),
     @NamedQuery(name = "Exit.findByDate", query = "SELECT e FROM Exit e WHERE e.date = :date"),
     @NamedQuery(name = "Exit.findByQuantity", query = "SELECT e FROM Exit e WHERE e.quantity = :quantity")})
+     @NamedQuery(name = "Exit.findByIdArticle", query = "SELECT e FROM Exit e WHERE e.idArticle = :idArticle")
 public class Exit implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -153,5 +154,5 @@ public class Exit implements Serializable {
     public String toString() {
         return "co.edu.sena.inventario.model.Exit[ idExit=" + idExit + " ]";
     }
-    
+
 }

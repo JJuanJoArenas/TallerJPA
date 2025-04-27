@@ -12,6 +12,7 @@ import co.edu.sena.inventario.model.Supplier;
 import co.edu.sena.inventario.model.controller.ArticleController;
 import co.edu.sena.inventario.model.controller.IArticleController;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -37,7 +38,6 @@ public class JFrameArticle extends javax.swing.JFrame {
             model.addColumn("Id Articulo");
             model.addColumn("Nombre");
             model.addColumn("Cantidad");
-           
 
             String[] rows = new String[4];
             List<Article> articles = articleController.findAll();
@@ -45,7 +45,7 @@ public class JFrameArticle extends javax.swing.JFrame {
                 rows[0] = String.valueOf(Article.getIdArticle());
                 rows[1] = Article.getName();
                 rows[2] = String.valueOf(Article.getQuantity());
-               model.addRow(rows);
+                model.addRow(rows);
             }
         } catch (Exception e) {
             MessageUtils.showErrorMessage(e.getMessage());
@@ -157,16 +157,31 @@ public class JFrameArticle extends javax.swing.JFrame {
         jButtonUpdate.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
         jButtonUpdate.setForeground(new java.awt.Color(0, 0, 0));
         jButtonUpdate.setText("Update");
+        jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUpdateActionPerformed(evt);
+            }
+        });
 
         jButtonDelete.setBackground(new java.awt.Color(255, 51, 51));
         jButtonDelete.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
         jButtonDelete.setForeground(new java.awt.Color(0, 0, 0));
         jButtonDelete.setText("Delete");
+        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteActionPerformed(evt);
+            }
+        });
 
         jButtonClear.setBackground(new java.awt.Color(153, 153, 153));
         jButtonClear.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
         jButtonClear.setForeground(new java.awt.Color(0, 0, 0));
         jButtonClear.setText("Clear");
+        jButtonClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonClearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -287,7 +302,13 @@ public class JFrameArticle extends javax.swing.JFrame {
                 jTextFieldPhoto.setText(article.getPhoto());
                 jTextFieldIDPresentation.setText(String.valueOf(idSelected));
                 jTextFieldIDCategory.setText(String.valueOf(idSelected));
+               
+                
+                 if (article.getIdSupplier() != null) {
                 jTextFieldIDSupplier.setText(String.valueOf(article.getIdSupplier().getIdUnit()));
+            } else {
+                jTextFieldIDSupplier.setText(""); // O dejarlo vacío: ""
+            }
 
                 jButtonInsert.setEnabled(false);
                 jButtonDelete.setEnabled(true);
@@ -314,15 +335,13 @@ public class JFrameArticle extends javax.swing.JFrame {
             Presentation presentation = new Presentation();
             presentation.setIdPresentation(presentationId);
             article.setIdPresentation(presentation);
-            
+
             String categoryidText = jTextFieldIDCategory.getText();
             long categoryId = Long.parseLong(categoryidText);
             Category category = new Category();
             category.setIdCategory(categoryId);
             article.setIdCategory(category);
-            
-           
-            
+
             articleController.insert(article);
             fillTable();
 
@@ -331,6 +350,67 @@ public class JFrameArticle extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonInsertActionPerformed
 
+    private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
+        try {
+            Article article = new Article();
+            article.setIdArticle(Long.valueOf(jTextFieldIDArticle.getText()));
+            article.setName(jTextFieldName.getText());
+            article.setQuantity(Integer.parseInt(jTextFieldQuantity.getText()));
+            article.setPhoto(jTextFieldPhoto.getText());
+            article.setTechnicalSheet(jTextFieldTechnical_sheet.getText());
+            // FK
+
+            String presentationIdText = jTextFieldIDPresentation.getText();
+            long presentationId = Long.parseLong(presentationIdText);
+            Presentation presentation = new Presentation();
+            presentation.setIdPresentation(presentationId);
+            article.setIdPresentation(presentation);
+
+            String categoryidText = jTextFieldIDCategory.getText();
+            long categoryId = Long.parseLong(categoryidText);
+            Category category = new Category();
+            category.setIdCategory(categoryId);
+            article.setIdCategory(category);
+            
+         
+            
+            articleController.update(article);
+            MessageUtils.showInfoMessage("Articulo modificado exitosamente");
+            fillTable();
+        } catch (Exception e) {
+            MessageUtils.showErrorMessage(e.getMessage());
+        }
+    }//GEN-LAST:event_jButtonUpdateActionPerformed
+
+    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
+        try {
+            int option = JOptionPane.showConfirmDialog(rootPane, "Está seguro de eliminar el registro?", "Confirmación", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
+                articleController.delete(Long.valueOf(jTextFieldIDArticle.getText()));
+                MessageUtils.showInfoMessage("Empleado eliminado exitosamente");
+                fillTable();
+            }
+            clean();
+        } catch (Exception e) {
+            MessageUtils.showErrorMessage(e.getMessage());
+        }
+    }//GEN-LAST:event_jButtonDeleteActionPerformed
+
+    private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
+        clean();
+    }//GEN-LAST:event_jButtonClearActionPerformed
+
+    public void clean(){
+        jTextFieldIDArticle.setText("");
+        jTextFieldIDCategory.setText("");
+        jTextFieldIDPresentation.setText("");
+        jTextFieldIDSupplier.setText("");
+        jTextFieldName.setText("");
+        jTextFieldPhoto.setText("");
+        jTextFieldQuantity.setText("");
+        jTextFieldTechnical_sheet.setText("");
+    }
+    
     /**
      * @param args the command line arguments
      */

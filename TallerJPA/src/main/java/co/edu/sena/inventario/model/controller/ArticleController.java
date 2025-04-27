@@ -64,9 +64,7 @@ public class ArticleController implements IArticleController{
         if(article.getQuantity() == 0){
               throw new Exception("la cantidad del articulo es obligatoria");
         }
-        if("".equals(article.getTechnicalSheet())){
-            throw new Exception("la ficha tecnica del articulo es obligatoria");
-        }
+       
         // Fk
         if(article.getIdPresentation() == null){
             throw new Exception("el id de la presentacion es obligatorio");
@@ -74,9 +72,7 @@ public class ArticleController implements IArticleController{
         if(article.getIdCategory() == null){
             throw new Exception("el id de la categoria es obligatorio");
         }
-        if(article.getIdSupplier() == null){
-            throw new Exception("el id del empleado es obligatorio");
-        }
+       
         // consultar si el articulo existe en la base de datos 
         Article articleExists = DAOFactory.getArticledao().findById(article.getIdArticle());
         if(articleExists == null){
@@ -92,7 +88,7 @@ public class ArticleController implements IArticleController{
         articleExists.setIdSupplier(article.getIdSupplier());
         
         EntityManagerHelper.beginTransaction();
-        DAOFactory.getArticledao().update(article);
+        DAOFactory.getArticledao().update(articleExists);
         EntityManagerHelper.commit();
         EntityManagerHelper.closeEntityManager();
         
@@ -100,18 +96,29 @@ public class ArticleController implements IArticleController{
 
     @Override
     public void delete(Long idArticle) throws Exception {
-     if(idArticle == 0){
-         throw new Exception("el id del articulo es obligatorio");  
-           }
-     
-      Article articleExists = DAOFactory.getArticledao().findById(idArticle);
-        if(articleExists == null){
-            throw new Exception("el articulo no existe ");
-        }
-         EntityManagerHelper.beginTransaction();
-        DAOFactory.getArticledao().delete(articleExists);
-        EntityManagerHelper.commit();
-        EntityManagerHelper.closeEntityManager();
+     if (idArticle == 0) {
+        throw new Exception("El ID del artículo es obligatorio.");
+    }
+
+    // Consultar si el artículo existe en la base de datos
+    Article articleExists = DAOFactory.getArticledao().findById(idArticle);
+    if (articleExists == null) {
+        throw new Exception("El artículo no existe.");
+    }
+
+    // Verificar si el artículo tiene un proveedor asociado
+    if (articleExists.getIdSupplier() != null) {
+        System.out.println("Proveedor asociado: " + articleExists.getIdSupplier().getIdUnit());
+    } else {
+        System.out.println("El artículo no tiene un proveedor asociado.");
+    }
+
+    // Eliminar el artículo
+    EntityManagerHelper.beginTransaction();
+    DAOFactory.getArticledao().delete(articleExists);
+    EntityManagerHelper.commit();
+    EntityManagerHelper.closeEntityManager();
+
     }
 
     @Override
