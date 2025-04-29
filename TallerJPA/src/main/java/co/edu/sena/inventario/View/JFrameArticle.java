@@ -39,7 +39,7 @@ public class JFrameArticle extends javax.swing.JFrame {
             model.addColumn("Nombre");
             model.addColumn("Cantidad");
 
-            String[] rows = new String[4];
+            String[] rows = new String[3];
             List<Article> articles = articleController.findAll();
             for (Article Article : articles) {
                 rows[0] = String.valueOf(Article.getIdArticle());
@@ -312,14 +312,26 @@ public class JFrameArticle extends javax.swing.JFrame {
                 jTextFieldName.setText(article.getName());
                 jTextFieldQuantity.setText(String.valueOf(article.getQuantity()));
                 jTextFieldPhoto.setText(article.getPhoto());
-                jTextFieldIDPresentation.setText(String.valueOf(idSelected));
-                jTextFieldIDCategory.setText(String.valueOf(idSelected));
+                jTextFieldTechnical_sheet.setText(article.getTechnicalSheet());
+              
                
                 
                  if (article.getIdSupplier() != null) {
                 jTextFieldIDSupplier.setText(String.valueOf(article.getIdSupplier().getIdUnit()));
             } else {
                 jTextFieldIDSupplier.setText(""); // O dejarlo vacío: ""
+            }
+                 
+                 if (article.getIdPresentation()!= null) {
+                jTextFieldIDPresentation.setText(String.valueOf(article.getIdPresentation().getIdPresentation()));
+            } else {
+                jTextFieldIDPresentation.setText(""); // O dejarlo vacío: ""
+            }
+                 
+                 if (article.getIdCategory()!= null) {
+                jTextFieldIDCategory.setText(String.valueOf(article.getIdCategory().getIdCategory()));
+            } else {
+                jTextFieldIDCategory.setText(""); // O dejarlo vacío: ""
             }
 
                 jButtonInsert.setEnabled(false);
@@ -353,6 +365,12 @@ public class JFrameArticle extends javax.swing.JFrame {
             Category category = new Category();
             category.setIdCategory(categoryId);
             article.setIdCategory(category);
+            
+            String suppliertext = jTextFieldIDSupplier.getText();
+            long supplierId = Long.parseLong(suppliertext);
+            Supplier supplier = new Supplier();
+            supplier.setIdUnit(supplierId);
+            article.setIdSupplier(supplier);
 
             articleController.insert(article);
             fillTable();
@@ -395,17 +413,27 @@ public class JFrameArticle extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonUpdateActionPerformed
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-        try {
-            int option = JOptionPane.showConfirmDialog(rootPane, "Está seguro de eliminar el registro?", "Confirmación", JOptionPane.YES_NO_OPTION);
-            if (option == JOptionPane.YES_OPTION) {
-                articleController.delete(Long.valueOf(jTextFieldIDArticle.getText()));
-                MessageUtils.showInfoMessage("Empleado eliminado exitosamente");
-                fillTable();
-            }
-            clean();
-        } catch (Exception e) {
-            MessageUtils.showErrorMessage(e.getMessage());
+       try {
+        String idText = jTextFieldIDArticle.getText().trim();
+        
+        if (idText.isEmpty()) {
+            throw new Exception("El campo ID del artículo no puede estar vacío.");
         }
+
+        long id = Long.parseLong(idText);
+
+        int option = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro de eliminar el registro?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        if (option == JOptionPane.YES_OPTION) {
+            articleController.delete(id);
+            MessageUtils.showInfoMessage("Artículo eliminado exitosamente");
+            fillTable();
+        }
+        clean();
+    } catch (NumberFormatException nfe) {
+        MessageUtils.showErrorMessage("El ID debe ser un número válido.");
+    } catch (Exception e) {
+        MessageUtils.showErrorMessage(e.getMessage());
+    }
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed

@@ -106,13 +106,6 @@ public class ArticleController implements IArticleController{
         throw new Exception("El artículo no existe.");
     }
 
-    // Verificar si el artículo tiene un proveedor asociado
-    if (articleExists.getIdSupplier() != null) {
-        System.out.println("Proveedor asociado: " + articleExists.getIdSupplier().getIdUnit());
-    } else {
-        System.out.println("El artículo no tiene un proveedor asociado.");
-    }
-
     // Eliminar el artículo
     EntityManagerHelper.beginTransaction();
     DAOFactory.getArticledao().delete(articleExists);
